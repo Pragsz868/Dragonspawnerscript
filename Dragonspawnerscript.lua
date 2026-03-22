@@ -1,4 +1,4 @@
---// Prxgx Styled UI (Clean Version)
+--// Prxgx Styled UI (Improved)
 
 local player = game.Players.LocalPlayer
 local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
@@ -41,67 +41,70 @@ local status = Instance.new("TextLabel", loading)
 status.Size = UDim2.new(1,0,0,30)
 status.Position = UDim2.new(0,0,0.6,0)
 status.BackgroundTransparency = 1
-status.Text = "Initializing..."
+status.Text = "Waiting..."
 status.TextColor3 = Color3.fromRGB(200,200,200)
 status.Font = Enum.Font.Gotham
 status.TextScaled = true
 
--- Button
-local button = Instance.new("TextButton", loading)
-button.Size = UDim2.new(0.6,0,0,40)
-button.Position = UDim2.new(0.2,0,0.75,0)
-button.Text = "Start bypassing"
-button.Font = Enum.Font.GothamBold
-button.TextScaled = true
-button.TextColor3 = Color3.new(1,1,1)
-button.BackgroundColor3 = Color3.fromRGB(0,120,255)
-button.BorderSizePixel = 0
-Instance.new("UICorner", button).CornerRadius = UDim.new(0,12)
+-- Start Button
+local startBtn = Instance.new("TextButton", loading)
+startBtn.Size = UDim2.new(0.6,0,0,40)
+startBtn.Position = UDim2.new(0.2,0,0.75,0)
+startBtn.Text = "Start bypassing"
+startBtn.Font = Enum.Font.GothamBold
+startBtn.TextScaled = true
+startBtn.TextColor3 = Color3.new(1,1,1)
+startBtn.BackgroundColor3 = Color3.fromRGB(0,120,255)
+startBtn.BorderSizePixel = 0
+Instance.new("UICorner", startBtn).CornerRadius = UDim.new(0,12)
 
--- Animate loading bar
-for i = 1,100 do
-	bar.Size = UDim2.new(i/100,0,1,0)
-	status.Text = "Initializing "..i.."%"
-	task.wait(0.02)
-end
+-- Click to start loading
+startBtn.MouseButton1Click:Connect(function()
+	startBtn.Visible = false
+	status.Text = "Initializing..."
 
-task.wait(0.5)
-loading:Destroy()
+	for i = 1,100 do
+		bar.Size = UDim2.new(i/100,0,1,0)
+		status.Text = "Loading "..i.."%"
+		task.wait(0.04) -- 🔥 slower loading (increase for more slow)
+	end
 
---// MAIN SPAWNER UI
-local main = Instance.new("Frame", gui)
-main.Size = UDim2.new(0, 260, 0, 120)
-main.Position = UDim2.new(0.5, -130, 0.5, -60)
-main.BackgroundColor3 = Color3.fromRGB(10,10,10)
-main.BorderSizePixel = 0
-main.Active = true
-main.Draggable = true
-Instance.new("UICorner", main).CornerRadius = UDim.new(0, 16)
+	task.wait(0.5)
+	loading:Destroy()
 
--- Title
-local mainTitle = Instance.new("TextLabel", main)
-mainTitle.Size = UDim2.new(1,0,0,40)
-mainTitle.BackgroundTransparency = 1
-mainTitle.Text = "Prxgx Spawner"
-mainTitle.TextColor3 = Color3.new(1,1,1)
-mainTitle.Font = Enum.Font.GothamBold
-mainTitle.TextScaled = true
+	--// MAIN UI
+	local main = Instance.new("Frame", gui)
+	main.Size = UDim2.new(0, 260, 0, 120)
+	main.Position = UDim2.new(0.5, -130, 0.5, -60)
+	main.BackgroundColor3 = Color3.fromRGB(10,10,10)
+	main.BorderSizePixel = 0
+	main.Active = true
+	main.Draggable = true
+	Instance.new("UICorner", main).CornerRadius = UDim.new(0, 16)
 
--- Spawn Button
-local spawnBtn = Instance.new("TextButton", main)
-spawnBtn.Size = UDim2.new(0.8,0,0,40)
-spawnBtn.Position = UDim2.new(0.1,0,0.5,0)
-spawnBtn.Text = "Spawn Dragon"
-spawnBtn.Font = Enum.Font.Gotham
-spawnBtn.TextScaled = true
-spawnBtn.TextColor3 = Color3.new(1,1,1)
-spawnBtn.BackgroundColor3 = Color3.fromRGB(30,30,30)
-spawnBtn.BorderSizePixel = 0
-Instance.new("UICorner", spawnBtn).CornerRadius = UDim.new(0,12)
+	-- Title
+	local mainTitle = Instance.new("TextLabel", main)
+	mainTitle.Size = UDim2.new(1,0,0,40)
+	mainTitle.BackgroundTransparency = 1
+	mainTitle.Text = "Prxgx Spawner"
+	mainTitle.TextColor3 = Color3.new(1,1,1)
+	mainTitle.Font = Enum.Font.GothamBold
+	mainTitle.TextScaled = true
 
--- Button function placeholder
-spawnBtn.MouseButton1Click:Connect(function()
-	print("Spawn Dragon clicked")
-	-- Put your own function here
+	-- Spawn Button
+	local spawnBtn = Instance.new("TextButton", main)
+	spawnBtn.Size = UDim2.new(0.8,0,0,40)
+	spawnBtn.Position = UDim2.new(0.1,0,0.5,0)
+	spawnBtn.Text = "Spawn Dragon"
+	spawnBtn.Font = Enum.Font.Gotham
+	spawnBtn.TextScaled = true
+	spawnBtn.TextColor3 = Color3.new(1,1,1)
+	spawnBtn.BackgroundColor3 = Color3.fromRGB(30,30,30)
+	spawnBtn.BorderSizePixel = 0
+	Instance.new("UICorner", spawnBtn).CornerRadius = UDim.new(0,12)
+
+	spawnBtn.MouseButton1Click:Connect(function()
+		print("Spawn Dragon clicked")
+	end)
 end)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/MoziIOnTop/pro/refs/heads/main/DragonEastSpawner.lua"))()
